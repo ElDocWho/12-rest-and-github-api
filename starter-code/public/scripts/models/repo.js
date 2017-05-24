@@ -18,10 +18,11 @@ var app = app || {};
         Authorization: githubToken
       }
     })
-      .then(
-        (data) => data.forEach(repo => repos.all.push(repo))
-      )
-    callback();
+    .then(data =>
+      {repos.all = data;
+      callback();
+
+    })
   };
 
   // REVIEW: Model method that filters the full collection for repos with a particular attribute.
