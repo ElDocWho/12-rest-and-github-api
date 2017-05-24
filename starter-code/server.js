@@ -112,7 +112,7 @@ app.delete('/articles', (request, response) => {
   .then(() => response.send('Delete complete'))
   .catch(console.error);
 });
-app.get('*', (request, response) => response.sendFile('index.html', {root: './public'}));
+app.get('/about', (request, response) => response.sendFile('index.html', {root: './public'}));
 loadDB();
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
