@@ -15,10 +15,12 @@ var app = app || {};
       url: 'https://api.github.com/user/repos',
       method: 'GET',
       headers: {
-        Authorization: `token ${githubToken}`
+        Authorization: githubToken
       }
     })
-    .then(data => { data.forEach(repo => {repos.all.push(repo)})});
+      .then(
+        (data) => data.forEach(repo => repos.all.push(repo))
+      )
     callback();
   };
 

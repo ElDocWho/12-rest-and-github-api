@@ -6,8 +6,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const app = express();
-const conString = 'postgres://eldocwho:base@localhost:3000';
-// const conString = ''; // TODO: Don't forget to set your own conString
+// const conString = 'postgres://eldocwho:base@localhost:3000';
+const conString = 'postgres://localhost:5432'; // TODO: Don't forget to set your own conString
 const client = new pg.Client(conString);
 client.connect();
 client.on('error', err => console.error(err));
@@ -18,7 +18,7 @@ app.use(express.static('./public'));
 
 app.get('/new', (request, response) => response.sendFile('new.html', {root: './public'}));
 app.get('/admin', (request, response) => response.sendFile('admin.html', {root: './public'}));
-app.get('*', (request, response) => response.sendFile('index.html', {root: './public'}));
+
 app.get('/articles', (request, response) => {
   client.query(`
     SELECT * FROM articles
@@ -112,10 +112,11 @@ app.delete('/articles', (request, response) => {
   .then(() => response.send('Delete complete'))
   .catch(console.error);
 });
-
+app.get('*', (request, response) => response.sendFile('index.html', {root: './public'}));
 loadDB();
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
+
 
 
 //////// ** DATABASE LOADERS ** ////////
